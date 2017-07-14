@@ -1,0 +1,48 @@
+Package de.rwth.i2.attestor.generated;
+
+Helpers
+
+	lcletter = ['a' .. 'z'];
+	ucletter = ['A' .. 'Z'];
+	digit = ['0' .. '9'];
+	
+Tokens
+	atomicprop = (lcletter | digit)+;
+	true = 'T';
+	false = 'F';
+	and = '&';
+	or = '|';
+	neg = '!';
+	next = 'X';
+	until = 'U';
+	release = 'R';
+	blank = ' ';
+	lparen = '(';
+	rparen = ')';
+	
+Ignored Tokens
+	blank;	
+	
+Productions
+	/*test = {true} true 
+		| {false} false 		
+		| {atomicprop} atomicprop
+		| {test} next test
+		;*/
+	ltlform = 
+		{stateform} stateform 
+		| {next} next ltlform
+		| {term} term
+		| {until} lparen [leftform]:ltlform until [rightform]:ltlform rparen
+		| {release} lparen [leftform]:ltlform release [rightform]:ltlform rparen;
+	
+	stateform = 
+		{neg} neg atomicprop 
+		| {and} lparen [leftform]:ltlform and [rightform]:ltlform rparen
+		| {or} lparen [leftform]:ltlform or [rightform]:ltlform rparen; 
+	term = 
+		{true} true 
+		| {false} false 		
+		| {atomicprop} atomicprop
+		;
+	
