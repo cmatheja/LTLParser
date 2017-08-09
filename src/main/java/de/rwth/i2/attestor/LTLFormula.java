@@ -20,6 +20,7 @@ import de.rwth.i2.attestor.generated.parser.*;
  */
 
 public class LTLFormula {
+
 	private String formulaString;
 	// Root node of the AST
 	private Start SableCCast;
@@ -77,6 +78,19 @@ public class LTLFormula {
 	public FormulaWalker getFormulaWalker() {
 
 		return this.walker;
+	}
+
+	public String getFormulaString() {
+		return formulaString;
+	}
+
+	public boolean equals(LTLFormula formula){
+
+		return this.formulaString.replaceAll(" ", "") == formula.getFormulaString().replaceAll(" ", "");
+	}
+
+	public int hashCode(){
+		return this.formulaString.replaceAll(" ", "").hashCode();
 	}
 
 }
