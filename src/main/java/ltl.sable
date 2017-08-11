@@ -5,9 +5,13 @@ Helpers
 	lcletter = ['a' .. 'z'];
 	ucletter = ['A' .. 'Z'];
 	digit = ['0' .. '9'];
+	dollar = '$';
+	us = '_';
+	variable = (lcletter | ucletter | digit | dollar | us)+;
+	sellist = '[' variable (',' variable)* ']';
+	varorsel = (variable | variable'.'variable);
 	
 Tokens
-	atomicprop = (lcletter | digit)+;
 	true = 'T';
 	false = 'F';
 	and = '&';
@@ -19,6 +23,19 @@ Tokens
 	blank = ' ';
 	lparen = '(';
 	rparen = ')';
+	lcurlyparen = '{';
+	rcurlyparen = '}';
+	aptree = 'tree';
+	apbtree = 'btree';
+	apsll = 'sll';
+	apdll = 'dll';
+	apvisited = 'visited';
+	apvisitedby = 'visited(' variable ')';
+	apidenticneighbours = 'identicNeighbours';
+	apisreach = 'isReachable(' variable ',' variable ')';
+	apisreachsel = 'isReachable(' variable ',' variable ',' sellist ')';
+	apequal = varorsel ' == ' varorsel;
+	apnotequal = varorsel ' != ' varorsel;
 	
 Ignored Tokens
 	blank;	
@@ -43,6 +60,18 @@ Productions
 	term = 
 		{true} true 
 		| {false} false 		
-		| {atomicprop} atomicprop
-		;
+		| {atomicprop} atomicprop;
+	atomicprop = 
+	    {tree} lcurlyparen aptree rcurlyparen
+	    | {btree} lcurlyparen apbtree rcurlyparen
+	    | {sll} lcurlyparen apsll rcurlyparen
+	    | {dll} lcurlyparen apdll rcurlyparen
+	    | {visited} lcurlyparen apvisited rcurlyparen
+	    | {visitedby} lcurlyparen apvisitedby rcurlyparen
+	    | {identicneighbours} lcurlyparen apidenticneighbours rcurlyparen
+	    | {isreach} lcurlyparen apisreach rcurlyparen
+	    | {isreachsel} lcurlyparen apisreachsel rcurlyparen
+	    | {equal} lcurlyparen apequal rcurlyparen
+	    | {notequal} lcurlyparen apnotequal rcurlyparen
+	    ;
 	
