@@ -18,7 +18,7 @@ public class FormulaWalkerTest {
 	public void testASTModification(){
 		LTLFormula formula = null;
 		try{
-			formula = new LTLFormula("(ap1 U ap2)");
+			formula = new LTLFormula("({dll} U {tree})");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
@@ -44,7 +44,7 @@ public class FormulaWalkerTest {
 	public void testFormulaWalkerAtomicProp(){
 		LTLFormula formula = null;
 		try{
-			formula = new LTLFormula("ap1");
+			formula = new LTLFormula("{dll}");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
@@ -54,14 +54,14 @@ public class FormulaWalkerTest {
 		
 		assertTrue(successors.get(0) instanceof AAtomicpropTerm);
 
-		assertEquals(successors.get(0).toString(), "ap1 ");
+		assertEquals(successors.get(0).toString(), "{ dll } ");
 	}
 	
 	@Test
 	public void testFormulaWalkerAnd(){
 		LTLFormula formula = null;
 		try{
-			formula = new LTLFormula("(ap1 & ap2)");
+			formula = new LTLFormula("({dll} & {tree})");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
@@ -73,8 +73,8 @@ public class FormulaWalkerTest {
 			assertTrue(successor instanceof ATermLtlform);
 		}
 		
-		assertEquals(successors.get(0).toString(), "ap1 ");
-		assertEquals(successors.get(1).toString(), "ap2 ");
+		assertEquals(successors.get(0).toString(), "{ dll } ");
+		assertEquals(successors.get(1).toString(), "{ tree } ");
 		
 	}
 	
@@ -82,7 +82,7 @@ public class FormulaWalkerTest {
 	public void testFormulaWalkerUntil(){
 		LTLFormula formula = null;
 		try{
-			formula = new LTLFormula("(ap1 U ap2)");
+			formula = new LTLFormula("({dll} U {tree})");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
@@ -91,8 +91,8 @@ public class FormulaWalkerTest {
 		assertTrue(successors.size() == 3);
 		
 
-		assertEquals(successors.get(0).toString(), "ap1 ");
-		assertEquals(successors.get(1).toString(), "ap2 ");
+		assertEquals(successors.get(0).toString(), "{ dll } ");
+		assertEquals(successors.get(1).toString(), "{ tree } ");
 		assertEquals(successors.get(2).toString(), "X ");
 		
 		// Make sure that walking newly generated next node returns the original until node

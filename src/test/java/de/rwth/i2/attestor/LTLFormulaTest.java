@@ -17,7 +17,7 @@ public class LTLFormulaTest {
 		
 		LTLFormula formula = null;
 		try{
-			formula = new LTLFormula("(ap1 & ap2)");
+			formula = new LTLFormula("({tree} & {dll})");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
