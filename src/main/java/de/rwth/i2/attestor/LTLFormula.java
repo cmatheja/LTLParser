@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import de.rwth.i2.attestor.generated.lexer.*;
 import de.rwth.i2.attestor.generated.node.*;
@@ -24,6 +25,11 @@ public class LTLFormula {
 	private String formulaString;
 	// Root node of the AST
 	private Start SableCCast;
+
+
+
+	// The list of atomic propositions contained in the formula
+	private List<String> apList;
 	
 	private FormulaWalker walker;
 
@@ -37,13 +43,10 @@ public class LTLFormula {
             Parser parser = new Parser(lexer);
             SableCCast = parser.parse() ;
  
-            /* Get our Interpreter going. */
-            //Interpreter interp = new Interpreter () ;
-            //ast.apply(interp) ;
-         //}
-         //catch (Exception e) {
-         //   System.out.println (e) ;
-         //} 
+            /* Collect all atomic propositions contained in the formula. */
+            APCollector apCollector = new APCollector();
+            SableCCast.apply(apCollector);
+            apList = apCollector.getAps();
 	}
 	
 	/**
@@ -64,6 +67,10 @@ public class LTLFormula {
 		node.apply(walker);
 		return walker.getSuccessors();
 
+	}
+
+	public List<String> getApList() {
+		return apList;
 	}
 	
 	public String toString(){
