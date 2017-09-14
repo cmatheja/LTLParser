@@ -12,8 +12,8 @@ Helpers
 	varorsel = (variable | variable'.'variable);
 	
 Tokens
-	true = 'T';
-	false = 'F';
+	true = 'true';
+	false = 'false';
 	and = '&';
 	or = '|';
 	neg = '!';
@@ -34,6 +34,7 @@ Tokens
 	apidenticneighbours = 'identicNeighbours';
 	apisreach = 'isReachable(' variable ',' variable ')';
 	apisreachsel = 'isReachable(' variable ',' variable ',' sellist ')';
+	apterminated = 'terminated';
 	apequal = varorsel ' == ' varorsel;
 	apnotequal = varorsel ' != ' varorsel;
 	
@@ -41,11 +42,6 @@ Ignored Tokens
 	blank;	
 	
 Productions
-	/*test = {true} true 
-		| {false} false 		
-		| {atomicprop} atomicprop
-		| {test} next test
-		;*/
 	ltlform = 
 		{stateform} stateform 
 		| {next} next ltlform
@@ -71,6 +67,7 @@ Productions
 	    | {identicneighbours} lcurlyparen apidenticneighbours rcurlyparen
 	    | {isreach} lcurlyparen apisreach rcurlyparen
 	    | {isreachsel} lcurlyparen apisreachsel rcurlyparen
+	    | {terminated} lcurlyparen apterminated rcurlyparen
 	    | {equal} lcurlyparen apequal rcurlyparen
 	    | {notequal} lcurlyparen apnotequal rcurlyparen
 	    ;

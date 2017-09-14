@@ -20,16 +20,16 @@ public class LTLParserTest {
 		LTLFormula formula;
 	// Terms
 		try{
-			formula = new LTLFormula("F ");
-			assertEquals(formula.toString(), "F  ");
+			formula = new LTLFormula("false ");
+			assertEquals(formula.toString(), "false  ");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
 		
 		try{
 			// Blanks ignored
-			formula = new LTLFormula("F  ");
-			assertEquals(formula.toString(), "F  ");
+			formula = new LTLFormula("false  ");
+			assertEquals(formula.toString(), "false  ");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
@@ -131,13 +131,22 @@ public class LTLParserTest {
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
+
+		try{
+			// APs
+			formula = new LTLFormula("{terminated}");
+			assertEquals(formula.toString(), "{ terminated }  ");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
 		
 	}
 	
 	@Test
 	public void testTermRejectance() {
 		try{
-			new LTLFormula("{T5T}");
+			new LTLFormula("{true}");
 			fail("No exception raised.");
 		} catch(ParserException e){
 			
