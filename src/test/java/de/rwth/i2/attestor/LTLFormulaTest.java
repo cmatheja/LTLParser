@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -59,5 +60,60 @@ public class LTLFormulaTest {
 		assertEquals(formula2.getApList().get(1), "{ sll }");
 		assertEquals(formula2.getApList().get(2), "{ dll }");
 	}
+
+	@Test
+	public void transformFinallyTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("F {tree}");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( true U { tree } )  ");
+	}
+
+	@Test
+	public void transformGloballyTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("G {tree}");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"! ( true U ! { tree } )  ");
+	}
+
+	@Test
+	public void transformImplicationTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("({tree} -> {dll})");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( ! { tree } | { dll } )  ");
+	}
+
+	@Test
+	public void negationPusherTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("({tree} | {dll})");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( { tree } | { dll } )  ");
+
+	}
+
+	// TODO: add negation push tests
 
 }

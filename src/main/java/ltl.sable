@@ -20,6 +20,9 @@ Tokens
 	next = 'X';
 	until = 'U';
 	release = 'R';
+	globally = 'G';
+	finally = 'F';
+	implies = '->';
 	blank = ' ';
 	lparen = '(';
 	rparen = ')';
@@ -45,12 +48,15 @@ Productions
 	ltlform = 
 		{stateform} stateform 
 		| {next} next ltlform
+		| {globally} globally ltlform
+		| {finally} finally ltlform
 		| {term} term
 		| {until} lparen [leftform]:ltlform until [rightform]:ltlform rparen
-		| {release} lparen [leftform]:ltlform release [rightform]:ltlform rparen;
+		| {release} lparen [leftform]:ltlform release [rightform]:ltlform rparen
+		| {implies} lparen [leftform]:ltlform implies [rightform]:ltlform rparen;
 	
 	stateform = 
-		{neg} neg atomicprop 
+		{neg} neg ltlform
 		| {and} lparen [leftform]:ltlform and [rightform]:ltlform rparen
 		| {or} lparen [leftform]:ltlform or [rightform]:ltlform rparen; 
 	term = 

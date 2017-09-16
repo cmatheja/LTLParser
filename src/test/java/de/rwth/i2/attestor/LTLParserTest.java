@@ -164,6 +164,20 @@ public class LTLParserTest {
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
+
+		try{
+			formula = new LTLFormula("! ({tree} & {dll})");
+			assertEquals(formula.toString(), "! ( { tree } & { dll } )  ");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		try{
+			formula = new LTLFormula("! X {tree}");
+			assertEquals(formula.toString(),"! X { tree }  ");
+		} catch(Exception e){
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
 		
 		try{
 		formula = new LTLFormula("({tree} & {dll})");
@@ -204,23 +218,6 @@ public class LTLParserTest {
 	
 	@Test
 	public void testLTLFormRejectance(){
-		try{
-			new LTLFormula("! ({tree} & {dll})");
-			fail("No exception raised.");
-		} catch(ParserException e){
-			
-		} catch(Exception e){
-			fail("Negation only allowed with subsequent AP, not state formula.");
-		}
-		
-		try{
-			new LTLFormula("! X {tree}");
-			fail("No exception raised.");
-		} catch(ParserException e){
-			
-		} catch(Exception e){
-			fail("Negation only allowed with subsequent AP, not LTL formula.");
-		}
 		
 		try{
 			new LTLFormula("{tree} U {sll} R {dll})");
@@ -245,6 +242,20 @@ public class LTLParserTest {
 		try{
 		formula = new LTLFormula("X ({tree} & {sll})");
 		assertEquals(formula.toString(), "X ( { tree } & { sll } )  ");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		try{
+			formula = new LTLFormula("F F ({tree} & {sll})");
+			assertEquals(formula.toString(), "F F ( { tree } & { sll } )  ");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		try{
+			formula = new LTLFormula("G ({tree} & {sll})");
+			assertEquals(formula.toString(), "G ( { tree } & { sll } )  ");
 		} catch(Exception e) {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
@@ -289,6 +300,13 @@ public class LTLParserTest {
 			assertEquals(formula.toString(), "( { tree } R { sll } )  ");
 		} catch(Exception e) {
 				fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		try{
+			formula = new LTLFormula("({tree} -> {sll})");
+			assertEquals(formula.toString(), "( { tree } -> { sll } )  ");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
 		
 	}

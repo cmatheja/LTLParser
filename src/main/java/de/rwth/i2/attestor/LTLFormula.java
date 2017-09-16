@@ -100,4 +100,16 @@ public class LTLFormula {
 		return this.formulaString.replaceAll(" ", "").hashCode();
 	}
 
+	/**
+	 * This method transforms the formula into PNF (i.e. adapts the formulae's AST accordingly).
+	 */
+	public void toPNF(){
+		// First eliminate all non-PNF operators (finally, globally, implication)
+		OperatorEliminator operatorEliminator = new OperatorEliminator();
+		SableCCast.apply(operatorEliminator);
+
+		// Then push negation inside
+		NegationPusher negPusher = new NegationPusher();
+		SableCCast.apply(negPusher);
+	}
 }
