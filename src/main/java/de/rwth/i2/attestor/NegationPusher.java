@@ -4,6 +4,9 @@ import de.rwth.i2.attestor.generated.analysis.DepthFirstAdapter;
 import de.rwth.i2.attestor.generated.node.*;
 
 /**
+ * The negation pusher walks the AST and pushes any negation inside until there is
+ * only negation at term level.
+ *
  * Created by christina on 15.09.17.
  */
 public class NegationPusher extends DepthFirstAdapter {
@@ -27,6 +30,12 @@ public class NegationPusher extends DepthFirstAdapter {
         }
     }
 
+
+    /**
+     * A helper class that handles the different transformations whenever a negated formula was detected.
+     * @param nonNegForm, the formula with negation already removed
+     * @return the transformed formula, where negation was pushed inside
+     */
     private Node handlePushCases(Node nonNegForm) {
 
         // In all other cases the subformula is a term, thus do nothing (as negation cannot be pushed inside furthermore)

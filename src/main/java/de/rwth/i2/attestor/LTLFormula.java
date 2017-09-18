@@ -26,8 +26,6 @@ public class LTLFormula {
 	// Root node of the AST
 	private Start SableCCast;
 
-
-
 	// The list of atomic propositions contained in the formula
 	private List<String> apList;
 	

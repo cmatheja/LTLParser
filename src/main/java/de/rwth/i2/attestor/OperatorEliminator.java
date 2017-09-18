@@ -4,6 +4,9 @@ import de.rwth.i2.attestor.generated.analysis.DepthFirstAdapter;
 import de.rwth.i2.attestor.generated.node.*;
 
 /**
+ * This class implements the AST walker, that transforms finally, globally and implication
+ * into their equivalents in PNF.
+ *
  * Created by christina on 14.09.17.
  */
 public class OperatorEliminator extends DepthFirstAdapter {
