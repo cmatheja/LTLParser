@@ -13,15 +13,16 @@ public class NegationPusher extends DepthFirstAdapter {
         Node stateForm = node.getStateform();
         if(stateForm instanceof ANegStateform){
             // Push negation inside
-            System.out.println("Push negation");
             Node nonNegForm = ((ANegStateform) stateForm).getLtlform();
             Node newNode = handlePushCases(nonNegForm);
 
-            node.replaceBy(newNode);
-            newNode.apply(this);
+            // Adapt only, if the negation was not already at term level
+            if(nonNegForm != newNode) {
+                node.replaceBy(newNode);
+                newNode.apply(this);
+            }
 
         } else {
-            System.out.println("Stateformula not negated!");
             super.caseAStateformLtlform(node);
         }
     }
@@ -62,6 +63,7 @@ public class NegationPusher extends DepthFirstAdapter {
             return orFormLtl;
 
         } else if(nonNegForm instanceof ANextLtlform){
+
             // Push negation inside without further changes
             PLtlform form = ((ANextLtlform) nonNegForm).getLtlform();
             AStateformLtlform negForm = new AStateformLtlform(new ANegStateform(new TNeg(), form));
@@ -85,13 +87,20 @@ public class NegationPusher extends DepthFirstAdapter {
 
         } else if(nonNegForm instanceof AReleaseLtlform){
 
-            // TODO
+            PLtlform form1 = ((AReleaseLtlform) nonNegForm).getLeftform();
+            PLtlform form2 = ((AReleaseLtlform) nonNegForm).getRightform();
 
+            // Negate both subformulae
+            AStateformLtlform negForm1Ltl = new AStateformLtlform(new ANegStateform(new TNeg(), form1));
+            AStateformLtlform negForm2Ltl = new AStateformLtlform(new ANegStateform(new TNeg(), form2));
+
+            // Conjunct both by until operator
+            AUntilLtlform untilForm = new AUntilLtlform(new TLparen(), negForm1Ltl, new TUntil(), negForm2Ltl, new TRparen());
+
+            return untilForm;
         }
 
         return nonNegForm;
-
-
     }
 
 }

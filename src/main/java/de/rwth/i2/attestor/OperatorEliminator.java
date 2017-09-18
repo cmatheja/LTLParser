@@ -16,8 +16,6 @@ public class OperatorEliminator extends DepthFirstAdapter {
         // Add it to AST instead of the current node
         node.replaceBy(untilNode);
 
-        System.out.println("Replacing finally node by " + untilNode.toString());
-
         // Proceed with this new node
         untilNode.apply(this);
     }
@@ -34,8 +32,6 @@ public class OperatorEliminator extends DepthFirstAdapter {
         // Replace with this node and proceed with it
         node.replaceBy(negUntilLtl);
 
-        System.out.println("Replacing globally node by " + negUntil.toString());
-
         negUntilLtl.apply(this);
 
     }
@@ -51,8 +47,6 @@ public class OperatorEliminator extends DepthFirstAdapter {
 
         // Replace implication by newly generated node
         node.replaceBy(orNodeLtl);
-
-        System.out.println("Replacing implication by " + orNodeLtl.toString());
 
         orNodeLtl.apply(this);
 

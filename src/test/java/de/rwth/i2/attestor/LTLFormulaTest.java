@@ -84,7 +84,7 @@ public class LTLFormulaTest {
 		}
 
 		formula.toPNF();
-		Assert.assertEquals(formula.toString(),"! ( true U ! { tree } )  ");
+		Assert.assertEquals(formula.toString(),"( ! true R { tree } )  ");
 	}
 
 	@Test
@@ -112,6 +112,84 @@ public class LTLFormulaTest {
 		formula.toPNF();
 		Assert.assertEquals(formula.toString(),"( { tree } | { dll } )  ");
 
+	}
+
+	@Test
+	public void negationPusherNegTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("! ! {tree}");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"{ tree }  ");
+	}
+
+	@Test
+	public void negationPusherAndTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("! ( {tree} & {sll} )");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( ! { tree } | ! { sll } )  ");
+	}
+
+	@Test
+	public void negationPusherOrTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("! ( {tree} | { sll} )");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( ! { tree } & ! { sll } )  ");
+	}
+
+	@Test
+	public void negationPusherNextTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("! X {tree}");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"X ! { tree }  ");
+	}
+
+	@Test
+	public void negationPusherUntilTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("! ( {tree} U {sll} )");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( ! { tree } R ! { sll } )  ");
+	}
+
+	@Test
+	public void negationPusherReleaseTest(){
+		LTLFormula formula = null;
+		try{
+			formula = new LTLFormula("! ( {tree} R { sll} )");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
+		formula.toPNF();
+		Assert.assertEquals(formula.toString(),"( ! { tree } U ! { sll } )  ");
 	}
 
 	// TODO: add negation push tests
