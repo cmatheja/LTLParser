@@ -140,6 +140,14 @@ public class LTLParserTest {
 			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
 		}
 
+		try{
+			// APs
+			formula = new LTLFormula("{ L(XnX) }");
+			assertEquals(formula.toString(), "{ L(XnX) }  ");
+		} catch(Exception e) {
+			fail("Formula should parse correctly. No Parser and Lexer exception expected!");
+		}
+
 		
 	}
 	

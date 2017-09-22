@@ -10,6 +10,7 @@ Helpers
 	variable = (lcletter | ucletter | digit | dollar | us)+;
 	sellist = '[' variable (',' variable)* ']';
 	varorsel = (variable | variable'.'variable);
+	nonterminal = (lcletter | ucletter)+;
 	
 Tokens
 	true = 'true';
@@ -40,6 +41,7 @@ Tokens
 	apterminated = 'terminated';
 	apequal = varorsel ' == ' varorsel;
 	apnotequal = varorsel ' != ' varorsel;
+	apntshape = 'L(' nonterminal ')';
 	
 Ignored Tokens
 	blank;	
@@ -76,5 +78,6 @@ Productions
 	    | {terminated} lcurlyparen apterminated rcurlyparen
 	    | {equal} lcurlyparen apequal rcurlyparen
 	    | {notequal} lcurlyparen apnotequal rcurlyparen
+	    | {ntshape} lcurlyparen apntshape rcurlyparen
 	    ;
 	
