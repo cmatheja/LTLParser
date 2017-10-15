@@ -32,6 +32,7 @@ Tokens
 	rcurlyparen = '}';
 	aptree = 'tree';
 	apbtree = 'btree';
+	apbimap = 'bimap';
 	apsll = 'sll';
 	apdll = 'dll';
 	apvisited = 'visited';
@@ -68,7 +69,8 @@ Productions
 		| {atomicprop} atomicprop;
 	atomicprop = 
 	    {tree} lcurlyparen aptree rcurlyparen
-	    | {btree} lcurlyparen apbtree rcurlyparen
+	    | {bimap} lcurlyparen apbtree rcurlyparen
+	    | {btree} lcurlyparen apbimap rcurlyparen
 	    | {sll} lcurlyparen apsll rcurlyparen
 	    | {dll} lcurlyparen apdll rcurlyparen
 	    | {visited} lcurlyparen apvisited rcurlyparen
