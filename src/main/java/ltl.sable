@@ -6,8 +6,9 @@ Helpers
 	ucletter = ['A' .. 'Z'];
 	digit = ['0' .. '9'];
 	dollar = '$';
+	at = '@';
 	us = '_';
-	variable = (lcletter | ucletter | digit | dollar | us)+;
+	variable = (lcletter | ucletter | digit | dollar | at | us)+;
 	sellist = '[' variable (',' variable)* ']';
 	varorsel = (variable | variable'.'variable);
 	nonterminal = (lcletter | ucletter)+;
