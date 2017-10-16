@@ -135,9 +135,9 @@
         <configuration>
            <groupId>de.rwth.i2.attestor</groupId>
             <artifactId>LTLParser</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>${project.version}</version>
             <packaging>jar</packaging>
-            <file>${basedir}/target/LTLParser-0.0.2-SNAPSHOT.jar</file>
+            <file>${basedir}/target/LTLParser-${project.version}.jar</file>
             <localRepositoryPath>${basedir}/../dependencies/maven-repo/</localRepositoryPath>
             <generatePom>true</generatePom>
         </configuration>
