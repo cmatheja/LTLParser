@@ -42,6 +42,13 @@
                         <organizationUrl>https://moves.rwth-aachen.de/</organizationUrl>
                 </developer>
         </developers>
+        
+        
+        <scm>
+                <connection>scm:git:git://github.com/cmatheja/LTLParser.git</connection>
+                <developerConnection>scm:git:ssh://github.com/cmatheja/LTLParser.git</developerConnection>
+                <url>https://github.com/cmatheja/LTLParser/tree/master</url>
+        </scm>
 
 
         <properties>
@@ -95,20 +102,6 @@
                                                 <id>attach-javadocs</id>
                                                 <goals>
                                                         <goal>jar</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                        </plugin>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-gpg-plugin</artifactId>
-                                <version>1.6</version>
-                                <executions>
-                                        <execution>
-                                                <id>sign-artifacts</id>
-                                                <phase>verify</phase>
-                                                <goals>
-                                                        <goal>sign</goal>
                                                 </goals>
                                         </execution>
                                 </executions>
@@ -236,5 +229,32 @@
                   <version>3.7</version>
           </dependency>
   </dependencies>
+  
+        <profiles>
+                <profile>
+                        <id>release-sign-artifacts</id>
+                        <activation>
+                                <activeByDefault>false</activeByDefault>
+                        </activation>
+                        <build>
+                                <plugins>
+                                        <plugin>
+                                                <groupId>org.apache.maven.plugins</groupId>
+                                                <artifactId>maven-gpg-plugin</artifactId>
+                                                <version>1.6</version>
+                                                <executions>
+                                                        <execution>
+                                                                <id>sign-artifacts</id>
+                                                                <phase>verify</phase>
+                                                                <goals>
+                                                                        <goal>sign</goal>
+                                                                </goals>
+                                                        </execution>
+                                                </executions>
+                                        </plugin>
+                                </plugins>
+                        </build>
+                </profile>
+        </profiles>
 
 </project>
